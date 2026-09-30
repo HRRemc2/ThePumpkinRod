@@ -108,7 +108,15 @@ def Sound_setup():
     global SFX_4
     global SFX_5
 
-    SFX_1 = "Labyrinth.wav"
+    SFX_1 = "sayo-nara.wav"
+    SFX_2 = "Mandying.wav"
+    
+    
+    SFX = [SFX_1, SFX_2]
+    
+    file_chosen = random.choice(SFX)
+    
+   # println(file_chosen)
 
     # EXTERNAL_POWER is already set up in LED_setup()
     power = power_pin
@@ -119,7 +127,7 @@ def Sound_setup():
     mixer = audiomixer.Mixer(
         voice_count=1,
         sample_rate=wave.sample_rate,
-        channel_count=1,
+        channel_count=2,
         bits_per_sample=wave.bits_per_sample,
         samples_signed=True
     )
@@ -132,8 +140,6 @@ def Sound_setup():
         board.I2S_DATA
     )
 
-    i2s.play(mixer)
-
 
 
 def Sound_loop():
@@ -145,7 +151,7 @@ def Sound_loop():
 
 
 #Volume, goes from 0 to 1
-    mixer.voice[0].level = 0.5
+    mixer.voice[0].level = 1
 
     print("Playing Audio")
     mixer.voice[0].play(wave)
@@ -154,7 +160,7 @@ def Sound_loop():
         Is_audio_playing = True
     else:
         Is_audio_playing = False
-        wave_file.close
+        wave_file.close()
 
 
 
@@ -168,6 +174,6 @@ while True:
     luxSensor_loop()
     lux_LED_check()
     Sound_loop()
-    time.sleep(3)
+    time.sleep(15)
 
 
